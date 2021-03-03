@@ -1,7 +1,9 @@
 # scanDeskew-Flask
 ## TODO:
-- verify file format
 - comment some hacks
+- find a better way and better parameters to treat the image
+    (to reduce errors of not finding enough contours later)
+- !!! create a better algorithm to find contours
 ## Requête-type CURL:
 ```shell
 curl -X PUT -H "Authorization: <token>" -F "image=<path_to_image>" http://localhost:5000/scanDeskew --output <image_output>

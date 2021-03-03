@@ -42,7 +42,7 @@ def dilate(image, kernel=np.ones((1, 1), np.uint8)):
 
 
 def blur(image):
-    return cv2.GaussianBlur(image, (3, 3), 0)
+    return cv2.GaussianBlur(image, (5, 5), 0)
 
 
 def erode(image, kernel=np.ones((1, 1), np.uint8)):
@@ -55,7 +55,11 @@ def treat_image(image):
     :param image: an image
     :return: the image but treated
     """
-    return erode(blur(dilate(grayscale(image))))
+    return blur(grayscale(image))
+
+    # TODO: find a better way and better parameters to treat the image
+    #  (to reduce errors of not finding enough contours later)
+    # return erode(blur(dilate(grayscale(image))))
 
     # image = grayscale(image)
     # image = dilate(image)
@@ -65,8 +69,8 @@ def treat_image(image):
 
 
 def file_to_img(file):
-    """ filestorage to image
-    Converts a filestorage to an opencv image
+    """ werkzeug file storage to image
+    Converts a werkzeug file storage to an opencv image
     :param file: a file storage
     :return: an opencv image
     """
