@@ -39,14 +39,14 @@ def scan_deskew():
 
     app.logger.info(f'filename: ${uploaded_file.filename}')
 
-    scanned_file = scan_and_deskew(uploaded_file)
+    scanned_file = b''
+    try:
+        scanned_file = scan_and_deskew(uploaded_file)
+    except Exception as e:
+        abort(501, e)
 
     return send_file(scanned_file, mimetype='image/jpg')
 
 
 if __name__ == '__main__':
     app.run()
-
-"""
-curl -i -X PUT -H "Authorization: 8bf54562-3000-11eb-adc1-0242ac120002" -F "image=@/home/axel/Pictures/DS_MemoraCar/greyCard-1.jpg" http://localhost:5000/scanDeskew
-"""

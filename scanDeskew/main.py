@@ -30,10 +30,7 @@ def scan_and_deskew(file):
 
     image = treat_image(image)
 
-    try:
-        edges = find_edges(image)
-        scanned_image = transform_image_4_pts(orig, edges * ratio)
-        scanned_file = img_to_bytes(scanned_image)
-        return scanned_file
-    except Exception as e:
-        print(e)
+    edges = find_edges(image)
+    scanned_image = transform_image_4_pts(orig, edges * ratio)
+    scanned_file = img_to_bytes(scanned_image)
+    return scanned_file

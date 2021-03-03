@@ -48,7 +48,7 @@ def find_edges(processed_image):
 
         return edges.reshape(4, 2)
     else:
-        raise Exception("Aucun bord n'a été trouvé")
+        raise Exception("L'image n'a pas pu être traité (Aucun contour utilisable n'a été trouvé)")
 
 
 def order_points(pts):
