@@ -29,6 +29,7 @@ def find_edges(processed_image):
     # Optimisation - We recover the 4 largest contours
     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
 
+    edges = None
     for c in contours:
         # Approximate the contour (c)
         epsilon = 0.01 * cv2.arcLength(c, True)
@@ -39,7 +40,7 @@ def find_edges(processed_image):
             edges = approx
             break
 
-    if 'edges' in locals():
+    if edges is not None:
         return edges.reshape(4, 2)
     else:
         raise Exception("The image could not be processed (No usable edges was found)")
