@@ -20,7 +20,7 @@ def find_edges(processed_image):
                  [https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_contours/py_contour_features/py_contour_features.html#contour-approximation}
         approx: approximation of a contour with the Douglas-Peucker algorithm
         edges: found edges of the document
-    :param processed_image: a processed image (this works with a treatment in main.py
+    :param processed_image: a processed image
     :return coords of the edges of the document in the image
     """
 
