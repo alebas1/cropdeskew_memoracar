@@ -31,7 +31,7 @@ def find_edges(processed_image):
     edges = None
     for c in contours:
         # Approximate the contour (c)
-        epsilon = 0.01 * cv2.arcLength(c, True)
+        epsilon = 0.1 * cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, epsilon, True)
 
         # if we find a quadrilateral, then we have an approximation
