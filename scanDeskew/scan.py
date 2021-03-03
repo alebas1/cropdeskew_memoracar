@@ -23,9 +23,8 @@ def find_edges(processed_image):
     :param processed_image: a processed image (this works with a treatment in main.py
     :return coords of the edges of the document in the image
     """
-    image_edged = cv2.Canny(processed_image, 30, 200)
 
-    contours = cv2.findContours(image_edged, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[0]
+    contours = cv2.findContours(processed_image, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[0]
     # Optimisation - We recover the 4 largest contours
     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
 

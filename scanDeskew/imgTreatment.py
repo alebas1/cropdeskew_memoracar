@@ -37,6 +37,10 @@ def grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 
+def canny(image):
+    return cv2.Canny(image, 30, 200)
+
+
 def dilate(image, kernel=np.ones((1, 1), np.uint8)):
     return cv2.dilate(image, kernel, iterations=5)
 
@@ -55,7 +59,7 @@ def treat_image(image):
     :param image: an image
     :return: the image but treated
     """
-    return blur(grayscale(image))
+    return canny(blur(grayscale(image)))
 
     # TODO: find a better way and better parameters to treat the image
     #  (to reduce errors of not finding enough contours later)
