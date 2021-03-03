@@ -26,29 +26,23 @@ def find_edges(processed_image):
     image_edged = cv2.Canny(processed_image, 30, 200)
 
     contours = cv2.findContours(image_edged, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[0]
-    # Optimisation - On récupère les 4 plus grand éléments
+    # Optimisation - We recover the 4 largest contours
     contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
 
     for c in contours:
-        # approximer le contour
+        # Approximate the contour (c)
         epsilon = 0.01 * cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, epsilon, True)
 
-        # si on trouve un quadrilatere, alors on a une approximation
+        # if we find a quadrilateral, then we have an approximation
         if len(approx) == 4:
             edges = approx
             break
 
     if 'edges' in locals():
-        # print(edges)
-        '''cv2.drawContours(processed_image, [edges], -1, (0, 255, 0), 2)
-        cv2.imshow("step 2: trouver les contours", processed_image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()'''
-
         return edges.reshape(4, 2)
     else:
-        raise Exception("L'image n'a pas pu être traité (Aucun contour utilisable n'a été trouvé)")
+        raise Exception("The image could not be processed (No usable edges was found)")
 
 
 def order_points(pts):

@@ -55,14 +55,13 @@ def treat_image(image):
     :param image: an image
     :return: the image but treated
     """
-    # return erode(blur(dilate(grayscale(image))))
+    return erode(blur(dilate(grayscale(image))))
 
-    image = grayscale(image)
-    image = dilate(image)
-    image = blur(image)
-    image = erode(image)
-
-    return image
+    # image = grayscale(image)
+    # image = dilate(image)
+    # image = blur(image)
+    # image = erode(image)
+    # return image
 
 
 def file_to_img(file):

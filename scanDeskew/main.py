@@ -13,11 +13,11 @@ from scanDeskew.scan import find_edges, transform_image_4_pts
 def scan_and_deskew(file):
     """ Scan and deskew
     deskew and stretch a file
-    :param file: a filestorage
-    :return: the deskewed filestorage
+    :param file: a werkzeug file storage
+    :return: the de-skewed werkzeug file storage
     """
 
-    # convert the filestorage to opencv img
+    # convert the werkzeug file storage to opencv img
     image = file_to_img(file)
 
     # TODO: integrate scanImg module
