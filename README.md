@@ -1,6 +1,5 @@
 # scanDeskew-Flask
 ## TODO:
-- comment some hacks
 - find a better way and better parameters to treat the image
     (to reduce errors of not finding enough contours later)
 - !!! create a better algorithm to find contours

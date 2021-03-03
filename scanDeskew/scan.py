@@ -23,6 +23,7 @@ def find_edges(processed_image):
     :param processed_image: a processed image
     :return coords of the edges of the document in the image
     """
+    # TODO: UPGRADE THIS ALGORITHM
 
     contours = cv2.findContours(processed_image, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)[0]
     # Optimisation - We recover the 4 largest contours
