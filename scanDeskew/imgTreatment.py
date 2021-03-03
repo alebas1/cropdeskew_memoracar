@@ -13,6 +13,15 @@ from io import BytesIO
 
 
 def resize_image(image):
+    """
+    Resizes the image to later preprocess it better, saving a copy of the original image and the ratio of resizing
+    Attributes:
+        orig: the original image
+        ratio: the ratio of resizing
+        image_resized: resized image
+    :param image: an image
+    :return: a dictionary containing the original image, the resized image and the ratio of resizing
+    """
     ratio = image.shape[0] / 500
     orig = image.copy()
     image_resized = imutils.resize(image, height=500)
@@ -41,6 +50,11 @@ def erode(image, kernel=np.ones((1, 1), np.uint8)):
 
 
 def treat_image(image):
+    """
+    treat the image to later find the borders
+    :param image: an image
+    :return: the image but treated
+    """
     # return erode(blur(dilate(grayscale(image))))
 
     image = grayscale(image)

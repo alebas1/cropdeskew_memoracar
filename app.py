@@ -17,6 +17,13 @@ app = Flask(__name__)
 
 @app.route('/scanDeskew', methods=['PUT'])
 def scan_deskew():
+    """
+    Attributes:
+        token: authorization token (static for now)
+        uploaded_file: the file sent in the request (file to scan)
+        scanned_file: scanned and de-skewed file
+    :return: a 200 response with a binary output (the scanned_file)
+    """
     token = request.headers.get('Authorization')
 
     if token is None:
@@ -32,9 +39,9 @@ def scan_deskew():
 
     app.logger.info(f'filename: ${uploaded_file.filename}')
 
-    response = scan_and_deskew(uploaded_file)
+    scanned_file = scan_and_deskew(uploaded_file)
 
-    return send_file(response, mimetype='image/jpg')
+    return send_file(scanned_file, mimetype='image/jpg')
 
 
 if __name__ == '__main__':
