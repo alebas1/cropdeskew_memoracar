@@ -6,33 +6,8 @@ File: main.py
 Essential algorithms to deskew and scan files
 """
 
-import numpy
-import cv2
-from io import BytesIO
-
-
-def file_to_img(file):
-    """ filestorage to image
-    Converts a filestorage to an opencv image
-    :param file: a file storage
-    :return: an opencv image
-    """
-    file_str = file.read()
-    np_img = numpy.fromstring(file_str, numpy.uint8)
-    img = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
-
-    return img
-
-
-def img_to_bytes(img):
-    """ OpenCV image to bytes
-    :param img: an opencv image
-    :return: bytes
-    """
-
-    _, bytes_frame = cv2.imencode('.jpg', img)
-    bytes_frame = BytesIO(bytes_frame.tostring())
-    return bytes_frame
+from scanDeskew.imgTreatment import file_to_img, resize_image, treat_image, img_to_bytes
+from scanDeskew.scan import find_edges, transform_image_4_pts
 
 
 def scan_and_deskew(file):
@@ -43,13 +18,22 @@ def scan_and_deskew(file):
     """
 
     # convert the filestorage to opencv img
-    img = file_to_img(file)
+    image = file_to_img(file)
 
     # TODO: integrate scanImg module
     # scan the opencv image
-    scanned_img = img
+    resize = resize_image(image)
 
-    # convert the scanned opencv image to bytes
-    scanned_file = img_to_bytes(scanned_img)
+    ratio = resize.get("ratio")
+    orig = resize.get("orig")
+    image = resize.get("image")
 
-    return scanned_file
+    image = treat_image(image)
+
+    try:
+        edges = find_edges(image)
+        scanned_image = transform_image_4_pts(orig, edges * ratio)
+        scanned_file = img_to_bytes(scanned_image)
+        return scanned_file
+    except Exception as e:
+        print(e)
