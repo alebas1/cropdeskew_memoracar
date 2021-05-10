@@ -22,15 +22,14 @@ def resize_image(image):
     :param image: an image
     :return: a dictionary containing the original image, the resized image and the ratio of resizing
     """
-    ratio = image.shape[0] / 500
-    orig = image.copy()
-    image_resized = imutils.resize(image, height=500)
 
-    return {
-        "ratio": ratio,
-        "orig": orig,
-        "image": image_resized
-    }
+    RESCALED_HEIGHT = 500
+
+    ratio = image.shape[0] / RESCALED_HEIGHT
+    orig = image.copy()
+    image_resized = imutils.resize(image, height=int(RESCALED_HEIGHT))
+
+    return {"ratio": ratio, "orig": orig, "image": image_resized}
 
 
 def grayscale(image):
@@ -38,19 +37,16 @@ def grayscale(image):
 
 
 def canny(image):
-    return cv2.Canny(image, 30, 200)
+    return cv2.Canny(image, 0, 84)
 
 
-def dilate(image, kernel=np.ones((1, 1), np.uint8)):
-    return cv2.dilate(image, kernel, iterations=5)
+def dilate(image):
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 9))
+    return cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
 
 
 def blur(image):
-    return cv2.GaussianBlur(image, (5, 5), 0)
-
-
-def erode(image, kernel=np.ones((1, 1), np.uint8)):
-    return cv2.erode(image, kernel, iterations=5)
+    return cv2.GaussianBlur(image, (7, 7), 0)
 
 
 def treat_image(image):
@@ -59,17 +55,12 @@ def treat_image(image):
     :param image: an image
     :return: the image but treated
     """
-    return canny(blur(grayscale(image)))
+    image = grayscale(image)
+    image = blur(image)
+    image = dilate(image)
+    image = canny(image)
 
-    # TODO: find a better way and better parameters to treat the image
-    #  (to reduce errors of not finding enough contours later)
-    # return erode(blur(dilate(grayscale(image))))
-
-    # image = grayscale(image)
-    # image = dilate(image)
-    # image = blur(image)
-    # image = erode(image)
-    # return image
+    return image
 
 
 def file_to_img(file):
@@ -78,6 +69,7 @@ def file_to_img(file):
     :param file: a file storage
     :return: an opencv image
     """
+
     file_str = file.read()
     np_img = np.fromstring(file_str, np.uint8)
     img = cv2.imdecode(np_img, cv2.IMREAD_COLOR)
