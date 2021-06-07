@@ -190,11 +190,11 @@ def get_contours(processed_image):
         if is_valid_contour(approx, IM_WIDTH, IM_HEIGHT):
             approx_contours.append(approx)
 
-    (cnts, hierarchy) = cv2.findContours(processed_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contours, hierarchy) = cv2.findContours(processed_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     # Optimisation - We recover the 4 largest contours
-    cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:5]
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
 
-    for c in cnts:
+    for c in contours:
         # approximate the contour
         approx = cv2.approxPolyDP(c, 80, True)
         if is_valid_contour(approx, IM_WIDTH, IM_HEIGHT):
@@ -206,10 +206,10 @@ def get_contours(processed_image):
         BOTTOM_RIGHT = (IM_WIDTH, IM_HEIGHT)
         BOTTOM_LEFT = (0, IM_HEIGHT)
         TOP_LEFT = (0, 0)
-        screenCnt = np.array([[TOP_RIGHT], [BOTTOM_RIGHT], [BOTTOM_LEFT], [TOP_LEFT]])
+        screen_cnt = np.array([[TOP_RIGHT], [BOTTOM_RIGHT], [BOTTOM_LEFT], [TOP_LEFT]])
     else:
-        screenCnt = max(approx_contours, key=cv2.contourArea)
-    return screenCnt.reshape(4, 2)
+        screen_cnt = max(approx_contours, key=cv2.contourArea)
+    return screen_cnt.reshape(4, 2)
 
 
 def order_points(pts):
