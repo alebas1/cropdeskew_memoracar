@@ -6,8 +6,8 @@ File: main.py
 Essential algorithms to deskew and scan files
 """
 
-from scanDeskew.imgTreatment import file_to_img, resize_image, treat_image, img_to_bytes
-from scanDeskew.scan import get_contours, transform_image_4_pts
+from cropdeskew.treatment import file_to_img, resize_image, treat_image, img_to_bytes
+from cropdeskew.scan import get_contours, transform_image_4_pts
 
 
 def scan_and_deskew(file):

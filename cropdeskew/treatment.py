@@ -1,7 +1,7 @@
 """
 Date: 01/03/2021
 Author: Axel Lebas
-File: imgTreatment.py
+File: treatment.py
 
 Image treatment.
 """

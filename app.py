@@ -10,12 +10,12 @@ Implement the development server.
 from flask import Flask, send_file
 import config
 from flask import request, abort
-from scanDeskew.main import scan_and_deskew
+from cropdeskew.main import scan_and_deskew
 
 app = Flask(__name__)
 
 
-@app.route('/scanDeskew', methods=['PUT'])
+@app.route('/cropdeskew', methods=['PUT'])
 def scan_deskew():
     """
     Attributes:
